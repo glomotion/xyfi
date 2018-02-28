@@ -125,7 +125,7 @@ remotes.on('connection', (remote) => {
 
 screens.on('connection', (socket) => {
   socket.emit('initialize', {
-    remoteIDs: Object.keys(remotes.sockets),
+    remoteIDs: Object.keys(activePointers),
     address: `${ip.address()}:${port}`
   });
 });
