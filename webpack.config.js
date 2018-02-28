@@ -21,18 +21,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const cssnext = require('postcss-cssnext');
 const combineLoaders = require('webpack-combine-loaders');
+const isProd = process.env.NODE_ENV === 'production';
 
-module.exports = {
+const config = {
   devtool: 'eval-source-map',
   entry: {
-    remote: [
-      'webpack-hot-middleware/client?reload=true',
-      path.join(__dirname, 'app/remote.js')
-    ],
-    screen: [
-      'webpack-hot-middleware/client?reload=true',
-      path.join(__dirname, 'app/screen.js')
-    ]
+    remote:   isProd
+                ? path.join(__dirname, 'app/remote.js')
+                : ['webpack-hot-middleware/client?reload=true',
+                  path.join(__dirname, 'app/remote.js')],
+    screen:   isProd
+                ? path.join(__dirname, 'app/screen.js')
+                : ['webpack-hot-middleware/client?reload=true',
+                  path.join(__dirname, 'app/screen.js')],
   },
   output: {
     path: path.join(__dirname, '/dist/'),
@@ -52,8 +53,7 @@ module.exports = {
       inject: 'body',
       filename: 'screen.html',
       chunks: ['screen']
-    }),    
-    new webpack.HotModuleReplacementPlugin(),
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
@@ -98,3 +98,9 @@ module.exports = {
     ]
   },
 };
+
+if (!isProd) {
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
+}
+
+module.exports = config;

@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "start": "node server",
-    "preprod": "webpack --config ./webpack.config.js --progress --profile --colors",
+    "preprod": "NODE_ENV=production webpack --config ./webpack.config.js --progress --profile --colors",
     "prod": "NODE_ENV=production node server.js"
   },
   "dependencies": {
