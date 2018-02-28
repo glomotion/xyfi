@@ -34,11 +34,14 @@ io.once('initialize', firstConnected)
   .on('pop', remoteLeaving)
 
   // Use the phone's gyro data to update the position of the cursor.
-  .on('position', function(id, position) {
+  .on('positions', function(activePointers) {
     if (!remotes) return;
-    remotes[id] = remotes[id] || {};
-    remotes[id].x = position[0];
-    remotes[id].y = position[1];
+
+    Object.keys(activePointers).forEach(key => {
+      remotes[key].x = activePointers[key][0];
+      remotes[key].y = activePointers[key][1];
+    });
+
     requestUpdate();
   });
 
@@ -76,7 +79,7 @@ function requestUpdate() {
     drawing = true;
     rAFIndex = rAF(updateDisplay);
   }
-} 
+}
 
 // Show cursors on the screen.
 function updateDisplay() {

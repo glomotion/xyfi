@@ -15,7 +15,9 @@
     "pointing device"
   ],
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "preprod": "webpack --config ./webpack.config.js --progress --profile --colors",
+    "prod": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "socket.io": "^2.0.3",
