@@ -58,10 +58,7 @@ function remoteJoined(id) {
   if (!remotes) return;
   if (!remotes[id]) {
     remoteCount++;
-    remotes[id] = {
-      x: 0,
-      y: 0
-    };
+    remotes[id] = { x: 0, y: 0 };
     remotes[id].dom = makeCursor();
   }
 }
@@ -89,14 +86,14 @@ function updateDisplay() {
     var trans = `translate3d(${x}px,${y}px,0)`;
     cursor.dom.style.webkitTransform = cursor.dom.style.transform = trans;
   }
-
   drawing = false;
 }
 
 // Generates a cursor DOM object.
-var makeCursor = function() {
+function makeCursor() {
   var cursor = document.createElement('i');
   cursor.classList.add('cursor');
   document.body.appendChild(cursor);
   return cursor;
-};
+}
+
