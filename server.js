@@ -108,7 +108,7 @@ remotes.on('connection', (remote) => {
   if (!positionBatchEmitTimer) batchUpdate();
   console.log('remote connected');
 
-  remote.once('disconnect', () => {
+  remote.on('disconnect', () => {
     screens.emit('pop', remote.id);
     delete activePointers[remote.id];
     if (Object.keys(activePointers).length === 0) {

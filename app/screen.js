@@ -36,12 +36,11 @@ io.once('initialize', firstConnected)
   // Use the phone's gyro data to update the position of the cursor.
   .on('positions', function(activePointers) {
     if (!remotes) return;
-
     Object.keys(activePointers).forEach(key => {
+      if (!remotes[key]) return;
       remotes[key].x = activePointers[key][0];
       remotes[key].y = activePointers[key][1];
     });
-
     requestUpdate();
   });
 
