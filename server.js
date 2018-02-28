@@ -24,7 +24,7 @@ const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
-const port = 8080;
+const port = 8090;
 const ip = require('ip');
 
 const app = express();

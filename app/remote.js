@@ -80,7 +80,7 @@ function handleDeviceOrientation(data) {
 }
 
 function handleTouchStartEvent(e) {
-  e.preventDefault();
+  e && e.preventDefault();
 
   // Every time we touch and hold we calibrate to the center of the screen.
   baseAlpha = latestAlpha;
@@ -105,7 +105,7 @@ function update() {
 if (window.DeviceOrientationEvent) {
   window.addEventListener('deviceorientation', handleDeviceOrientation, false);
 
-  window.addEventListener('touchstart', handleTouchStartEvent, {
+  /*window.addEventListener('touchstart', handleTouchStartEvent, {
       capture: true,
       passive: false
     }
@@ -127,7 +127,12 @@ if (window.DeviceOrientationEvent) {
       capture: true,
       passive: false
     }
-  );
+  );*/
 } else {
   alert('This device is not supported.');
 }
+
+// temp:
+setTimeout(function() {
+  handleTouchStartEvent();
+}, 2000);
